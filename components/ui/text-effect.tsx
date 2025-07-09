@@ -180,6 +180,7 @@ const createVariantsWithTransition = (
 ): Variants => {
   if (!transition) return baseVariants;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { exit: _, ...mainTransition } = transition;
 
   return {
@@ -223,7 +224,7 @@ export function TextEffect({
   containerTransition,
   segmentTransition,
   style,
-}: TextEffectProps) {
+}: Readonly<TextEffectProps>) {
   const segments = splitText(children, per);
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
 
