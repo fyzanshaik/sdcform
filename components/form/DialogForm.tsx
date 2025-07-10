@@ -22,19 +22,23 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { submitApplicationData } from "@/app/actions/application";
-import { toast } from "sonner"; 
-import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { Loader2, Plus, Trash2 } from "lucide-react";
 
 export function ApplicationDialog() {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [projects, setProjects] = useState<string[]>([""]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
-    
+
+    // Collect project links
+    const projectLinks: string[] = projects.filter(p => p.trim() !== "");
+
     const applicationData = {
       name: formData.get("name") as string,
       rollNumber: formData.get("rollNumber") as string,
@@ -42,13 +46,14 @@ export function ApplicationDialog() {
       yearOfStudy: parseInt(formData.get("yearOfStudy") as string),
       preferredPosition: formData.get("preferredPosition") as string,
       githubProfile: formData.get("githubProfile") as string,
-      linkedinProfile: formData.get("linkedinProfile") as string || "",
-      notes: formData.get("notes") as string || "",
+      linkedinProfile: (formData.get("linkedinProfile") as string) || "",
+      notes: (formData.get("notes") as string) || "",
+      projects: projectLinks,
     };
 
     try {
       const result = await submitApplicationData(applicationData);
-      
+
       if (result.success) {
         toast.success(result.message);
         setOpen(false);
@@ -70,17 +75,14 @@ export function ApplicationDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="">
-          Apply for Position
-        </Button>
+        <Button className="">Apply for Position</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Apply for Developer Club Position</DialogTitle>
-           
           </DialogHeader>
-          
+
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="name">Full Name *</Label>
@@ -106,13 +108,57 @@ export function ApplicationDialog() {
 
             <div className="grid gap-2">
               <Label htmlFor="branch">Branch of Engineering *</Label>
-              <Input
-                id="branch"
-                name="branch"
-                placeholder="e.g., Computer Science, Electronics"
-                required
-                disabled={isSubmitting}
-              />
+              <Select name="branch" required disabled={isSubmitting}>
+                <SelectTrigger className="truncate overflow-hidden whitespace-nowrap max-w-full">
+                  <SelectValue
+                    placeholder="Choose your branch"
+                    className="truncate overflow-hidden whitespace-nowrap max-w-full"
+                  />
+                </SelectTrigger>
+                <SelectContent className="w-full max-w-xs sm:max-w-md md:max-w-fit md:w-auto">
+                  <SelectItem value="CSE (CSE)">
+                    <span className="break-words whitespace-normal block">
+                      CSE (CSE)
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="CSE and Artificial Intelligence and Machine Learning (AIML)">
+                    <span className="break-words whitespace-normal block">
+                      CSE and Artificial Intelligence and Machine Learning
+                      (AIML)
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="CSE (Data Science)">
+                    <span className="break-words whitespace-normal block">
+                      CSE (Data Science)
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="Information Technology (IT)">
+                    <span className="break-words whitespace-normal block">
+                      Information Technology (IT)
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="Electronics and Communication Engineering (ECE)">
+                    <span className="break-words whitespace-normal block">
+                      Electronics and Communication Engineering (ECE)
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="Electrical and Electronics Engineering (EEE)">
+                    <span className="break-words whitespace-normal block">
+                      Electrical and Electronics Engineering (EEE)
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="Mechanical Engineering">
+                    <span className="break-words whitespace-normal block">
+                      Mechanical Engineering
+                    </span>
+                  </SelectItem>
+                  <SelectItem value="Civil Engineering">
+                    <span className="break-words whitespace-normal block">
+                      Civil Engineering
+                    </span>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="grid gap-2">
@@ -139,7 +185,7 @@ export function ApplicationDialog() {
                 <SelectContent>
                   <SelectItem value="Vice President">Vice President</SelectItem>
                   <SelectItem value="Secretary">Secretary</SelectItem>
-                  <SelectItem value="Other">Other</SelectItem>
+                  <SelectItem value="Club Member">Club Member</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -167,6 +213,58 @@ export function ApplicationDialog() {
               />
             </div>
 
+            {/* Showcase Projects */}
+            <div className="grid gap-2">
+              <Label>Show off your projects here</Label>
+              <div className="flex flex-col gap-2">
+                {projects.map((project, idx) => (
+                  <div key={idx} className="flex gap-2 items-center">
+                    <Input
+                      type="url"
+                      name={`project-${idx}`}
+                      placeholder="https://your-cool-project.vercel.app"
+                      value={project}
+                      onChange={e => {
+                        const newProjects = [...projects];
+                        newProjects[idx] = e.target.value;
+                        setProjects(newProjects);
+                      }}
+                      className="flex-1 min-w-0"
+                      pattern="https?://.+"
+                      title="Please enter a valid URL starting with http(s)://"
+                      disabled={isSubmitting}
+                      // No required field for projects, all optional
+                    />
+                    {projects.length > 1 && (
+                      <button
+                        type="button"
+                        aria-label="Remove project"
+                        onClick={() =>
+                          setProjects(projects.filter((_, i) => i !== idx))
+                        }
+                        className="p-2 rounded hover:bg-destructive/10 text-destructive transition-colors"
+                        tabIndex={0}
+                        disabled={isSubmitting}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => setProjects([...projects, ""])}
+                  className="inline-flex items-center gap-1 text-primary hover:underline text-sm font-medium self-start mt-1"
+                  disabled={isSubmitting || projects.length >= 5}
+                >
+                  <Plus className="w-4 h-4" /> Add another project
+                </button>
+                <span className="text-xs text-muted-foreground">
+                  Share deployed links to your best projects! (max 5)
+                </span>
+              </div>
+            </div>
+
             <div className="grid gap-2">
               <Label htmlFor="notes">Additional Notes</Label>
               <Textarea
@@ -181,19 +279,11 @@ export function ApplicationDialog() {
 
           <DialogFooter className="gap-2">
             <DialogClose asChild>
-              <Button 
-                type="button" 
-                variant="outline"
-                disabled={isSubmitting}
-              >
+              <Button type="button" variant="outline" disabled={isSubmitting}>
                 Cancel
               </Button>
             </DialogClose>
-            <Button 
-              type="submit" 
-              disabled={isSubmitting}
-              className=""
-            >
+            <Button type="submit" disabled={isSubmitting} className="">
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
