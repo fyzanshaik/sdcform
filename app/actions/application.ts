@@ -1,8 +1,10 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import { db } from "@/lib/drizzle";
+import { applications } from "@/lib/schema";
 import { ApplicationFormData, applicationFormSchema } from "@/schemas/schema";
 import { revalidatePath } from "next/cache";
+import { eq } from "drizzle-orm";
 
 export async function submitApplicationData(data: ApplicationFormData) {
   try {
@@ -11,13 +13,28 @@ export async function submitApplicationData(data: ApplicationFormData) {
     const validatedData = applicationFormSchema.parse(data);
     console.log("Validated data:", validatedData); // Debug log
 
-    // Test database connection
-    await prisma.$connect();
-    console.log("Database connected successfully"); // Debug log
+    // Check if application with this roll number already exists
+    const existingApplication = await db
+      .select()
+      .from(applications)
+      .where(eq(applications.rollNumber, validatedData.rollNumber))
+      .limit(1);
 
-    const application = await prisma.application.create({
-      data: validatedData,
-    });
+    if (existingApplication.length > 0) {
+      return {
+        success: false,
+        message: "An application with this roll number already exists",
+      };
+    }
+
+    const [application] = await db
+      .insert(applications)
+      .values({
+        ...validatedData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .returning();
 
     console.log("Application created:", application.id); // Debug log
 
@@ -63,33 +80,28 @@ export async function submitApplicationData(data: ApplicationFormData) {
       };
     }
 
-    // Unique constraint error
+    // Database constraint errors (Drizzle throws different errors)
     if (
       typeof error === "object" &&
       error !== null &&
       "message" in error &&
-      typeof (error as { message?: string }).message === "string" &&
-      (error as { message: string }).message.includes("Unique constraint")
+      typeof (error as { message?: string }).message === "string"
     ) {
-      return {
-        success: false,
-        message: "An application with this roll number already exists",
-      };
-    }
+      const message = (error as { message: string }).message;
+      
+      if (message.includes("duplicate key") || message.includes("unique constraint")) {
+        return {
+          success: false,
+          message: "An application with this roll number already exists",
+        };
+      }
 
-    // Database connection errors
-    if (
-      typeof error === "object" &&
-      error !== null &&
-      "message" in error &&
-      typeof (error as { message?: string }).message === "string" &&
-      ((error as { message: string }).message.includes("connect") ||
-        ("code" in error && (error as { code?: string }).code === "P1001"))
-    ) {
-      return {
-        success: false,
-        message: "Database connection failed. Please try again later.",
-      };
+      if (message.includes("connection") || message.includes("network")) {
+        return {
+          success: false,
+          message: "Database connection failed. Please try again later.",
+        };
+      }
     }
 
     return {
@@ -105,7 +117,5 @@ export async function submitApplicationData(data: ApplicationFormData) {
               : String(error))
           : undefined,
     };
-  } finally {
-    await prisma.$disconnect();
   }
 }
