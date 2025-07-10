@@ -5,28 +5,28 @@ export const applicationSchema = z.object({
     .string()
     .min(1, "Name is required")
     .max(100, "Name must be less than 100 characters"),
-  
+
   rollNumber: z
     .string()
     .min(1, "Roll number is required")
     .max(20, "Roll number must be less than 20 characters"),
-  
+
   branch: z
     .string()
     .min(1, "Branch is required")
-    .max(50, "Branch must be less than 50 characters"),
-  
+    .max(100, "Branch must be less than 100 characters"),
+
   yearOfStudy: z
     .number()
     .int("Year must be a whole number")
     .min(1, "Year must be between 1 and 4")
     .max(4, "Year must be between 1 and 4"),
-  
+
   preferredPosition: z
     .string()
     .min(1, "Preferred position is required")
     .max(50, "Position must be less than 50 characters"),
-  
+
   githubProfile: z
     .string()
     .url("Please enter a valid GitHub URL")
@@ -34,7 +34,7 @@ export const applicationSchema = z.object({
       /^https:\/\/github\.com\/[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/,
       "Please enter a valid GitHub profile URL"
     ),
-  
+
   linkedinProfile: z
     .string()
     .url("Please enter a valid LinkedIn URL")
@@ -44,7 +44,7 @@ export const applicationSchema = z.object({
     )
     .optional()
     .or(z.literal("")),
-  
+
   notes: z
     .string()
     .max(500, "Notes must be less than 500 characters")
@@ -54,7 +54,7 @@ export const applicationSchema = z.object({
 
 export type ApplicationFormData = z.infer<typeof applicationSchema>;
 
-export const applicationFormSchema = applicationSchema.transform((data) => ({
+export const applicationFormSchema = applicationSchema.transform(data => ({
   ...data,
   linkedinProfile: data.linkedinProfile === "" ? null : data.linkedinProfile,
   notes: data.notes === "" ? null : data.notes,
