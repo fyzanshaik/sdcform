@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { Loader2, Plus, Trash2 } from "lucide-react";
 import { TextScramble } from "@/components/motion-shadcn/scramble-text";
 import { useRef } from "react";
+import type { ZodError, ZodIssue } from "zod";
 
 export function ApplicationDialog() {
   const [open, setOpen] = useState(false);
@@ -98,9 +99,9 @@ export function ApplicationDialog() {
       } else if (result.errors && Array.isArray(result.errors)) {
         // Zod error format: [{ path: [field], message: "..." }, ...]
         const errors: Record<string, string> = {};
-        result.errors.forEach((err: any) => {
+        (result.errors as ZodIssue[]).forEach(err => {
           if (Array.isArray(err.path) && err.path.length > 0) {
-            errors[err.path[0]] = err.message;
+            errors[String(err.path[0])] = err.message;
           }
         });
         setFieldErrors(errors);
@@ -122,24 +123,44 @@ export function ApplicationDialog() {
   }
 
   // Helper to get error and ref for each field
-  const getFieldProps = (
+  function getFieldProps(
+    name: string,
+    type: "input"
+  ): React.InputHTMLAttributes<HTMLInputElement>;
+  function getFieldProps(
+    name: string,
+    type: "select"
+  ): React.SelectHTMLAttributes<HTMLSelectElement>;
+  function getFieldProps(
+    name: string,
+    type: "textarea"
+  ): React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+  function getFieldProps(
     name: string,
     type: "input" | "select" | "textarea" = "input"
-  ) => {
+  ) {
     const error = fieldErrors[name];
-    const props: any = {
+    const baseProps = {
       "aria-invalid": !!error,
       "aria-describedby": error ? `${name}-error` : undefined,
       className: error
         ? "border-destructive focus-visible:ring-destructive"
         : undefined,
     };
-    // Only attach ref for input fields
     if (type === "input" && error && !firstErrorRef.current) {
-      props.ref = firstErrorRef;
+      return {
+        ...baseProps,
+        ref: firstErrorRef,
+      } as React.InputHTMLAttributes<HTMLInputElement>;
     }
-    return props;
-  };
+    if (type === "select") {
+      return baseProps as React.SelectHTMLAttributes<HTMLSelectElement>;
+    }
+    if (type === "textarea") {
+      return baseProps as React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+    }
+    return baseProps;
+  }
 
   return (
     <>
@@ -197,9 +218,19 @@ export function ApplicationDialog() {
                 <Select
                   name="branch"
                   disabled={isSubmitting}
-                  {...getFieldProps("branch")}
+                  aria-invalid={!!fieldErrors["branch"]}
+                  aria-describedby={
+                    fieldErrors["branch"] ? `branch-error` : undefined
+                  }
                 >
-                  <SelectTrigger className="truncate overflow-hidden whitespace-nowrap max-w-full">
+                  <SelectTrigger
+                    className={[
+                      "truncate overflow-hidden whitespace-nowrap max-w-full",
+                      fieldErrors["branch"]
+                        ? "border-destructive focus-visible:ring-destructive"
+                        : "",
+                    ].join(" ")}
+                  >
                     <SelectValue
                       placeholder="Choose your branch"
                       className="truncate overflow-hidden whitespace-nowrap max-w-full"
@@ -256,9 +287,18 @@ export function ApplicationDialog() {
                 <Select
                   name="yearOfStudy"
                   disabled={isSubmitting}
-                  {...getFieldProps("yearOfStudy")}
+                  aria-invalid={!!fieldErrors["yearOfStudy"]}
+                  aria-describedby={
+                    fieldErrors["yearOfStudy"] ? `yearOfStudy-error` : undefined
+                  }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger
+                    className={
+                      fieldErrors["yearOfStudy"]
+                        ? "border-destructive focus-visible:ring-destructive"
+                        : undefined
+                    }
+                  >
                     <SelectValue placeholder="Select your year" />
                   </SelectTrigger>
                   <SelectContent>
@@ -275,9 +315,20 @@ export function ApplicationDialog() {
                 <Select
                   name="preferredPosition"
                   disabled={isSubmitting}
-                  {...getFieldProps("preferredPosition", "select")}
+                  aria-invalid={!!fieldErrors["preferredPosition"]}
+                  aria-describedby={
+                    fieldErrors["preferredPosition"]
+                      ? `preferredPosition-error`
+                      : undefined
+                  }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger
+                    className={
+                      fieldErrors["preferredPosition"]
+                        ? "border-destructive focus-visible:ring-destructive"
+                        : undefined
+                    }
+                  >
                     <SelectValue placeholder="Select your preferred position" />
                   </SelectTrigger>
                   <SelectContent>
