@@ -50,7 +50,7 @@ export default function Home() {
             <div className="space-y-2 text-sm sm:text-base">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                <span><strong>Date & Time:</strong> July 11th, 2:20 PM</span>
+                <span><strong>Date & Time:</strong> July 12th, 2:20 PM</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
