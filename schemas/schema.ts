@@ -33,7 +33,9 @@ export const applicationSchema = z.object({
     .regex(
       /^https:\/\/github\.com\/[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/,
       "Please enter a valid GitHub profile URL"
-    ),
+    )
+    .optional()
+    .or(z.literal("")),
 
   linkedinProfile: z
     .string()
@@ -50,14 +52,22 @@ export const applicationSchema = z.object({
     .max(500, "Notes must be less than 500 characters")
     .optional()
     .or(z.literal("")),
+
+  projects: z
+    .array(z.string().url("Please enter a valid URL for each project"))
+    .max(5, "Maximum 5 projects allowed")
+    .optional()
+    .default([]),
 });
 
 export type ApplicationFormData = z.infer<typeof applicationSchema>;
 
 export const applicationFormSchema = applicationSchema.transform(data => ({
   ...data,
+  githubProfile: data.githubProfile === "" ? null : data.githubProfile,
   linkedinProfile: data.linkedinProfile === "" ? null : data.linkedinProfile,
   notes: data.notes === "" ? null : data.notes,
+  projects: data.projects || [],
 }));
 
 export type ApplicationData = z.infer<typeof applicationFormSchema>;

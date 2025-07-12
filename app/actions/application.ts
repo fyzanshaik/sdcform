@@ -8,8 +8,6 @@ import { eq } from "drizzle-orm";
 
 export async function submitApplicationData(data: ApplicationFormData) {
   try {
-    console.log("Received data:", data); // Debug log
-    
     const validatedData = applicationFormSchema.parse(data);
     console.log("Validated data:", validatedData); // Debug log
 
@@ -27,13 +25,20 @@ export async function submitApplicationData(data: ApplicationFormData) {
       };
     }
 
+    // Prepare data for database insertion
+    const dbData = {
+      ...validatedData,
+      projects:
+        validatedData.projects && validatedData.projects.length > 0
+          ? JSON.stringify(validatedData.projects)
+          : null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
     const [application] = await db
       .insert(applications)
-      .values({
-        ...validatedData,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      })
+      .values(dbData)
       .returning();
 
     console.log("Application created:", application.id); // Debug log
@@ -56,7 +61,10 @@ export async function submitApplicationData(data: ApplicationFormData) {
         console.error("Error name:", (error as { name?: string }).name);
       }
       if ("message" in error) {
-        console.error("Error message:", (error as { message?: string }).message);
+        console.error(
+          "Error message:",
+          (error as { message?: string }).message
+        );
       }
       if ("stack" in error) {
         console.error("Error stack:", (error as { stack?: string }).stack);
@@ -88,8 +96,11 @@ export async function submitApplicationData(data: ApplicationFormData) {
       typeof (error as { message?: string }).message === "string"
     ) {
       const message = (error as { message: string }).message;
-      
-      if (message.includes("duplicate key") || message.includes("unique constraint")) {
+
+      if (
+        message.includes("duplicate key") ||
+        message.includes("unique constraint")
+      ) {
         return {
           success: false,
           message: "An application with this roll number already exists",
@@ -109,12 +120,12 @@ export async function submitApplicationData(data: ApplicationFormData) {
       message: "Failed to submit application. Please try again.",
       error:
         process.env.NODE_ENV === "development"
-          ? (typeof error === "object" &&
-              error !== null &&
-              "message" in error &&
-              typeof (error as { message?: string }).message === "string"
-              ? (error as { message: string }).message
-              : String(error))
+          ? typeof error === "object" &&
+            error !== null &&
+            "message" in error &&
+            typeof (error as { message?: string }).message === "string"
+            ? (error as { message: string }).message
+            : String(error)
           : undefined,
     };
   }
