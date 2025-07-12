@@ -12,7 +12,7 @@ export function ModeToggle() {
  const cycleTheme = () => {
    if (theme === "light" || theme == "system") {
       setTheme("dark");
-    } else {
+    } else { 
       setTheme("light");
     }
 };
