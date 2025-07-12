@@ -51,7 +51,6 @@ export function ApplicationDialog() {
       { name: "branch", label: "Branch of Engineering" },
       { name: "yearOfStudy", label: "Year of Study" },
       { name: "preferredPosition", label: "Preferred Position" },
-      { name: "githubProfile", label: "GitHub Profile" },
     ];
     const newFieldErrors: Record<string, string> = {};
     requiredFields.forEach(field => {
@@ -78,7 +77,7 @@ export function ApplicationDialog() {
       branch: formData.get("branch") as string,
       yearOfStudy: parseInt(formData.get("yearOfStudy") as string),
       preferredPosition: formData.get("preferredPosition") as string,
-      githubProfile: formData.get("githubProfile") as string,
+      githubProfile: (formData.get("githubProfile") as string) || "",
       linkedinProfile: (formData.get("linkedinProfile") as string) || "",
       notes: (formData.get("notes") as string) || "",
       projects: projectLinks,
@@ -350,12 +349,15 @@ export function ApplicationDialog() {
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="githubProfile">GitHub Profile *</Label>
+                <Label htmlFor="githubProfile">
+                  GitHub Profile{" "}
+                  <span className="text-muted-foreground">(optional)</span>
+                </Label>
                 <Input
                   id="githubProfile"
                   name="githubProfile"
                   type="url"
-                  placeholder="https://github.com/yourusername"
+                  placeholder="https://github.com/yourusername (optional)"
                   disabled={isSubmitting}
                   {...getFieldProps("githubProfile", "input")}
                 />

@@ -15,7 +15,7 @@ export const applications = pgTable("applications", {
   branch: text("branch").notNull(),
   yearOfStudy: integer("year_of_study").notNull(),
   preferredPosition: text("preferred_position").notNull(),
-  githubProfile: text("github_profile").notNull(),
+  githubProfile: text("github_profile"),
   linkedinProfile: text("linkedin_profile"),
   notes: text("notes"),
   projects: text("projects"), // JSON stringified array of project links
