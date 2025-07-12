@@ -11,6 +11,7 @@ import {
   Users,
   Mic,
   Smile,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FaWhatsapp } from "react-icons/fa";
@@ -131,8 +132,25 @@ export default function Home() {
           </section>
 
           <section>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
-              <p className="text-sm sm:text-base text-muted-foreground">
+            <div className="mb-4 flex flex-col items-center">
+              <div className="rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 px-4 py-2 text-yellow-900 dark:text-yellow-100 text-center text-base font-medium max-w-xl shadow-sm">
+                <span className="font-semibold">Note:</span> You do{" "}
+                <span className="font-bold text-green-700 dark:text-green-300">
+                  not
+                </span>{" "}
+                need to attend an interview to join as a{" "}
+                <span className="font-bold text-primary">Club Member</span>.
+                Interviews are only required for leadership positions.
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl border-2 border-primary/40 shadow-lg animate-pulse-slow relative">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+                <span className="inline-flex items-center gap-1 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-md animate-pulse-slow">
+                  <Star className="w-4 h-4 mr-1 text-yellow-300" /> Most
+                  Important
+                </span>
+              </div>
+              <p className="text-sm sm:text-base text-muted-foreground mt-4 sm:mt-0">
                 Apply through this form
               </p>
               <span className="text-sm sm:text-base text-muted-foreground hidden sm:inline">

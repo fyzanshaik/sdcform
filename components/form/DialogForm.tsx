@@ -23,7 +23,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { submitApplicationData } from "@/app/actions/application";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2 } from "lucide-react";
+import { Loader2, Plus, Trash2, UserPlus } from "lucide-react";
 import { TextScramble } from "@/components/motion-shadcn/scramble-text";
 import { useRef } from "react";
 import type { ZodError, ZodIssue } from "zod";
@@ -166,7 +166,15 @@ export function ApplicationDialog() {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="">Apply for Position</Button>
+          <div className="flex flex-col items-center gap-2">
+            <Button
+              className="bg-primary text-primary-foreground font-bold text-lg px-8 py-4 rounded-lg border border-primary/60 flex items-center gap-2 shadow-sm hover:shadow-md hover:underline hover:bg-primary/90 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:outline-none"
+              size="lg"
+            >
+              <UserPlus className="w-5 h-5 opacity-80" />
+              Join the Club
+            </Button>
+          </div>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
           <form onSubmit={handleSubmit}>
