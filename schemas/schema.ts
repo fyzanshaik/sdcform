@@ -40,10 +40,6 @@ export const applicationSchema = z.object({
   linkedinProfile: z
     .string()
     .url("Please enter a valid LinkedIn URL")
-    .regex(
-      /^https:\/\/(?:www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/,
-      "Please enter a valid LinkedIn profile URL"
-    )
     .optional()
     .or(z.literal("")),
 
