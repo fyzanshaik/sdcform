@@ -9,14 +9,13 @@ import { Button } from "@/components/ui/button";
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
 
- const cycleTheme = () => {
-   if (theme === "light" || theme == "system") {
+  const cycleTheme = () => {
+    if (theme === "light" || theme == "system") {
       setTheme("dark");
-    } else { 
+    } else {
       setTheme("light");
     }
-};
-
+  };
 
   return (
     <Button variant="outline" size="icon" onClick={cycleTheme}>

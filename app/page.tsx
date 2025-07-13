@@ -377,7 +377,7 @@ export default function Home() {
                     className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-2 rounded-lg shadow transition-colors"
                   >
                     <a
-                      href="https://wa.me/919347560270"
+                      href=""
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Chat with Gnaneshwar on WhatsApp"

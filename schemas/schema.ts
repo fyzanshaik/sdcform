@@ -62,7 +62,7 @@ export const applicationSchema = z.object({
 
 export type ApplicationFormData = z.infer<typeof applicationSchema>;
 
-export const applicationFormSchema = applicationSchema.transform(data => ({
+export const applicationFormSchema = applicationSchema.transform((data) => ({
   ...data,
   githubProfile: data.githubProfile === "" ? null : data.githubProfile,
   linkedinProfile: data.linkedinProfile === "" ? null : data.linkedinProfile,

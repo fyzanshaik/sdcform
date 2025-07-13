@@ -90,9 +90,7 @@
         "applications_roll_number_unique": {
           "name": "applications_roll_number_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "roll_number"
-          ]
+          "columns": ["roll_number"]
         }
       },
       "policies": {},

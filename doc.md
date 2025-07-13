@@ -1,15 +1,16 @@
 # Student Developers Club
 
-*SDC* (with a playful, "scrambled" vibe to the abbreviation)
+_SDC_ (with a playful, "scrambled" vibe to the abbreviation)
 
-The Student Developers Club was founded to bring together curious minds who love exploring and tinkering with technology. We are a passionate team of software developers, and we’re always looking for new members who share our enthusiasm for building and learning.
+The Student Developers Club was founded to bring together curious minds who love exploring and
+tinkering with technology. We are a passionate team of software developers, and we’re always looking
+for new members who share our enthusiasm for building and learning.
 
-If you’re a geek who has built projects or has ideas you’re excited about, we’d love to have you join us!
-
+If you’re a geek who has built projects or has ideas you’re excited about, we’d love to have you
+join us!
 
 We currently have **two open leadership positions** in our club.  
 You’re also welcome to join as a member and be part of our growing community.
-
 
 ## How to Apply
 
@@ -34,7 +35,6 @@ Here are some videos and blogs we suggest you check out before applying:
 - [Open Source Contributions](https://www.youtube.com/watch?v=WG5ikvJ2TKA)
 - [Building a Developer Portfolio](https://www.youtube.com/watch?v=U3aXWizDbQ4)
 
-
 There’s a bug on our page: the theme toggle isn’t working as expected.  
 If you’d like to help, check out our codebase here:  
 [https://github.com/fyzanshaik/sdcform](https://github.com/fyzanshaik/sdcform)
@@ -46,8 +46,5 @@ If you find and fix the issue, please send us a Pull Request!
 Not sure how? Here’s a helpful guide:  
 [How to Make a Pull Request on GitHub](https://www.youtube.com/watch?v=nCKdihvneS0)
 
-
-
 We’re excited to see what you’ll bring to the Student Developers Club!  
 Join us, learn, build, and make an impact.
-
