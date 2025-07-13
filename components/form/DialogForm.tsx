@@ -42,7 +42,7 @@ export function ApplicationDialog() {
     setFieldErrors({});
 
     const formData = new FormData(event.currentTarget);
-    const projectLinks: string[] = projects.filter(p => p.trim() !== "");
+    const projectLinks: string[] = projects.filter((p) => p.trim() !== "");
 
     // --- Client-side required field validation ---
     const requiredFields = [
@@ -53,7 +53,7 @@ export function ApplicationDialog() {
       { name: "preferredPosition", label: "Preferred Position" },
     ];
     const newFieldErrors: Record<string, string> = {};
-    requiredFields.forEach(field => {
+    requiredFields.forEach((field) => {
       const value = formData.get(field.name);
       if (!value || (typeof value === "string" && value.trim() === "")) {
         newFieldErrors[field.name] = `${field.label} is required`;
@@ -98,7 +98,7 @@ export function ApplicationDialog() {
       } else if (result.errors && Array.isArray(result.errors)) {
         // Zod error format: [{ path: [field], message: "..." }, ...]
         const errors: Record<string, string> = {};
-        (result.errors as ZodIssue[]).forEach(err => {
+        (result.errors as ZodIssue[]).forEach((err) => {
           if (Array.isArray(err.path) && err.path.length > 0) {
             errors[String(err.path[0])] = err.message;
           }
@@ -408,7 +408,7 @@ export function ApplicationDialog() {
                         name={`project-${idx}`}
                         placeholder="https://your-cool-project.vercel.app"
                         value={project}
-                        onChange={e => {
+                        onChange={(e) => {
                           const newProjects = [...projects];
                           newProjects[idx] = e.target.value;
                           setProjects(newProjects);

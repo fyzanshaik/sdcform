@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],
@@ -18,7 +18,8 @@ import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "SDC - Students Developer Club",
-  description: "SDC is for nerds who want to learn and build @Vardhaman College of Engineering",
+  description:
+    "SDC is for nerds who want to learn and build @Vardhaman College of Engineering",
 };
 
 export default function RootLayout({
