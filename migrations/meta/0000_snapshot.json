@@ -1,0 +1,112 @@
+{
+	"id": "a578e1bb-80b4-41d2-99e7-0446fe22fc5f",
+	"prevId": "00000000-0000-0000-0000-000000000000",
+	"version": "7",
+	"dialect": "postgresql",
+	"tables": {
+		"public.applications": {
+			"name": "applications",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "text",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"name": {
+					"name": "name",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"roll_number": {
+					"name": "roll_number",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"branch": {
+					"name": "branch",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"year_of_study": {
+					"name": "year_of_study",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"preferred_position": {
+					"name": "preferred_position",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"github_profile": {
+					"name": "github_profile",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"linkedin_profile": {
+					"name": "linkedin_profile",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"notes": {
+					"name": "notes",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"projects": {
+					"name": "projects",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {
+				"applications_roll_number_unique": {
+					"name": "applications_roll_number_unique",
+					"nullsNotDistinct": false,
+					"columns": ["roll_number"]
+				}
+			},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"sequences": {},
+	"roles": {},
+	"policies": {},
+	"views": {},
+	"_meta": {
+		"columns": {},
+		"schemas": {},
+		"tables": {}
+	}
+}
