@@ -18,7 +18,7 @@ export const applications = pgTable("applications", {
   githubProfile: text("github_profile").notNull(),
   linkedinProfile: text("linkedin_profile"),
   notes: text("notes"),
-  projects: text("projects"), // JSON stringified array of project links
+  projects: text("projects"), 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
