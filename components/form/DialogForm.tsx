@@ -348,10 +348,6 @@ export function ApplicationDialog() {
 										<SelectValue placeholder="Select your preferred position" />
 									</SelectTrigger>
 									<SelectContent>
-										<SelectItem value="Vice President">
-											Vice President
-										</SelectItem>
-										<SelectItem value="Secretary">Secretary</SelectItem>
 										<SelectItem value="Club Member">
 											Club Member
 										</SelectItem>

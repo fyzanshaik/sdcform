@@ -52,7 +52,7 @@ export default function Home() {
 							us!
 						</p>
 
-						<div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 p-4 sm:p-5 rounded-lg">
+						{/* <div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 p-4 sm:p-5 rounded-lg">
 							<p className="text-base sm:text-lg leading-relaxed m-0">
 								We currently have{' '}
 								<strong className="text-primary">
@@ -63,11 +63,11 @@ export default function Home() {
 								You&apos;re also welcome to join as a member and be part of
 								our growing community.
 							</p>
-						</div>
+						</div> */}
 					</div>
 
 					{/* Interview Details */}
-					<section className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border border-blue-200 dark:border-blue-800 p-4 sm:p-6 rounded-xl">
+					{/* <section className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border border-blue-200 dark:border-blue-800 p-4 sm:p-6 rounded-xl">
 						<div className="flex items-center gap-2 mb-4">
 							<Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
 							<h2 className="text-xl sm:text-2xl font-bold text-blue-700 dark:text-blue-300 m-0">
@@ -89,7 +89,7 @@ export default function Home() {
 								</span>
 							</div>
 						</div>
-					</section>
+					</section> */}
 
 					{/* Perks Section */}
 					<section className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border border-green-200 dark:border-green-800 p-4 sm:p-6 rounded-xl">
@@ -134,8 +134,9 @@ export default function Home() {
 						</div>
 					</section>
 
+					{/* Application Form Section */}
 					<section>
-						<div className="mb-4 flex flex-col items-center">
+						{/* <div className="mb-4 flex flex-col items-center">
 							<div className="rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 px-4 py-2 text-yellow-900 dark:text-yellow-100 text-center text-base font-medium max-w-xl shadow-sm">
 								<span className="font-semibold">Note:</span> You do{' '}
 								<span className="font-bold text-green-700 dark:text-green-300">
@@ -145,14 +146,14 @@ export default function Home() {
 								<span className="font-bold text-primary">Club Member</span>
 								. Interviews are only required for leadership positions.
 							</div>
-						</div>
+						</div> */}
 						<div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl border-2 border-primary/40 shadow-lg animate-pulse-slow relative">
-							<div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+							{/* <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
 								<span className="inline-flex items-center gap-1 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-md animate-pulse-slow">
 									<Star className="w-4 h-4 mr-1 text-yellow-300" /> Most
 									Important
 								</span>
-							</div>
+							</div> */}
 							<p className="text-sm sm:text-base text-muted-foreground mt-4 sm:mt-0">
 								Apply through this form
 							</p>
@@ -161,63 +162,34 @@ export default function Home() {
 							</span>
 							<ApplicationDialog />
 						</div>
+					</section>
 
-						<div className="grid sm:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8">
-							<div className="space-y-3 sm:space-y-4 p-4 bg-muted/30 rounded-lg border">
-								<h3 className="text-lg sm:text-xl font-semibold text-primary">
-									What we&apos;re looking for:
-								</h3>
-								<ul className="space-y-2 sm:space-y-3 text-sm sm:text-base">
-									<li className="flex items-start gap-2 sm:gap-3">
-										<span className="text-primary mt-1 text-xs sm:text-sm">
-											•
-										</span>
-										<span>A genuine love for programming</span>
-									</li>
-									<li className="flex items-start gap-2 sm:gap-3">
-										<span className="text-primary mt-1 text-xs sm:text-sm">
-											•
-										</span>
-										<span>
-											Experience shipping projects or having creative ideas
-										</span>
-									</li>
-									<li className="flex items-start gap-2 sm:gap-3">
-										<span className="text-primary mt-1 text-xs sm:text-sm">
-											•
-										</span>
-										<span>
-											Interest in a specific domain you&apos;d like to
-											build in and discuss
-										</span>
-									</li>
-								</ul>
+					{/* What We're Looking For Section */}
+					<section className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border border-blue-200 dark:border-blue-800 p-4 sm:p-6 rounded-xl mb-6 sm:mb-8">
+						<div className="flex items-center gap-2 mb-4">
+							<Star className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+							<h2 className="text-xl sm:text-2xl font-bold text-blue-700 dark:text-blue-300 m-0">
+								What we&apos;re looking for
+							</h2>
+						</div>
+						<div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+							<div className="flex items-start gap-2">
+								<span className="text-blue-600 dark:text-blue-400 mt-1 text-xs sm:text-sm font-bold">•</span>
+								<span className="text-sm sm:text-base">
+									A genuine love for programming
+								</span>
 							</div>
-
-							<div className="space-y-3 sm:space-y-4 p-4 bg-muted/30 rounded-lg border">
-								<h3 className="text-lg sm:text-xl font-semibold text-primary">
-									What to expect:
-								</h3>
-								<ul className="space-y-2 sm:space-y-3 text-sm sm:text-base">
-									<li className="flex items-start gap-2 sm:gap-3">
-										<span className="text-primary mt-1 text-xs sm:text-sm">
-											•
-										</span>
-										<span>
-											We&apos;ll ask about your programming basics, your
-											experiences, and your knowledge
-										</span>
-									</li>
-									<li className="flex items-start gap-2 sm:gap-3">
-										<span className="text-primary mt-1 text-xs sm:text-sm">
-											•
-										</span>
-										<span>
-											Be ready to discuss how applications work and answer
-											questions about your chosen domain
-										</span>
-									</li>
-								</ul>
+							<div className="flex items-start gap-2">
+								<span className="text-blue-600 dark:text-blue-400 mt-1 text-xs sm:text-sm font-bold">•</span>
+								<span className="text-sm sm:text-base">
+									Experience shipping projects or having creative ideas
+								</span>
+							</div>
+							<div className="flex items-start gap-2 sm:col-span-2">
+								<span className="text-blue-600 dark:text-blue-400 mt-1 text-xs sm:text-sm font-bold">•</span>
+								<span className="text-sm sm:text-base">
+									Interest in a specific domain you&apos;d like to build in and discuss
+								</span>
 							</div>
 						</div>
 					</section>
@@ -261,7 +233,7 @@ export default function Home() {
 						</div>
 					</section>
 
-					<section className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 border border-orange-200 dark:border-orange-800 p-4 sm:p-6 rounded-xl">
+					{/* <section className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 border border-orange-200 dark:border-orange-800 p-4 sm:p-6 rounded-xl">
 						<h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-5 text-orange-700 dark:text-orange-300">
 							Help Us Fix a Bug! (Bonus points)
 						</h2>
@@ -318,7 +290,7 @@ export default function Home() {
 								</a>
 							</div>
 						</div>
-					</section>
+					</section> */}
 
 					<div className="text-center py-3 sm:py-8 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
 						<div className="space-y-3 sm:space-y-4">
